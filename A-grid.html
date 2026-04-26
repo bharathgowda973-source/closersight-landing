@@ -49,9 +49,9 @@
     footer{padding-bottom:calc(32px + env(safe-area-inset-bottom));}
   }
   .nav-inner{max-width:1440px;margin:0 auto;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
-  .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;letter-spacing:-0.02em;}
-  .logo-mark{width:22px;height:22px;border-radius:6px;background:var(--ink);position:relative;overflow:hidden;}
-  .logo-mark::after{content:"";position:absolute;inset:4px;border-radius:3px;background:var(--accent);}
+  .logo{display:flex;align-items:center;gap:12px;font-weight:700;font-size:22px;letter-spacing:-0.02em;}
+  .logo svg{width:38px;height:38px;display:block;flex-shrink:0;}
+  .logo em{font-style:normal;font-weight:700;color:inherit;}
   .nav-links{display:flex;gap:28px;font-size:14px;color:var(--ink-2);}
   .nav-links a{position:relative;padding:4px 0;transition:color .2s;}
   .nav-links a:hover{color:var(--ink);}
@@ -410,7 +410,15 @@
 
 <nav class="nav">
   <div class="nav-inner">
-    <a href="#" class="logo"><span class="logo-mark"></span>CloserSight</a>
+    <a href="#" class="logo" aria-label="CloserSight">
+      <svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="56" height="56" rx="14" fill="#003336"/>
+        <ellipse cx="28" cy="28" rx="18" ry="11" stroke="#9ae3e3" stroke-width="2.4" fill="none"/>
+        <circle cx="28" cy="28" r="6" fill="#9ae3e3"/>
+        <circle cx="30" cy="26" r="1.6" fill="#003336"/>
+      </svg>
+      <span>Closer<em>Sight.</em></span>
+    </a>
     <div class="nav-cta">
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSfLgDTqKjuU8ZyHEUm6tjJcFs7Zf9fOqeeANVmuD5r1UOGpyw/viewform?usp=dialog" target="_blank" rel="noopener" class="btn btn-primary">Join Waitlist →</a>
     </div>
