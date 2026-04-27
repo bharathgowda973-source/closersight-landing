@@ -304,8 +304,8 @@
     .testi-section{padding:60px 0;}
     .orbit-cards{grid-template-columns:1fr;}
     .tcard{opacity:1!important;transform:none!important;}
-    .product-stage{height:200vh;}
-    #product{height:100svh;}
+    .product-stage{height:auto;}
+    #product{height:auto;min-height:0;}
     .product-hd{padding:28px 20px 20px 10px;}
     .reel-inner{padding:0 20px 32px 10px;}
     .final{padding:80px 0 64px;}
@@ -359,9 +359,9 @@
   }
 
   /* ── Product / Feature Reel ─────────────────────────────────────────────── */
-  .product-stage{height:280vh;}
+  .product-stage{height:auto;}
   #product{
-    position:sticky;top:0;height:100vh;
+    position:relative;height:100vh;
     background:var(--ink);overflow:hidden;
     border-top:1px solid var(--line);
     display:flex;flex-direction:column;
@@ -811,53 +811,7 @@
     if(img) img.classList.add('visible');
   }, 900);
 
-  // Product — zoom reel device to fill viewport on scroll
-  (function(){
-    if (window.matchMedia('(max-width:768px)').matches) return;
-    const stage = document.querySelector('.product-stage');
-    if (!stage) return;
-    const hd     = document.querySelector('.product-hd');
-    const prog   = document.querySelector('.reel-progress');
-    const device = document.querySelector('.reel-device');
-    const hl     = document.getElementById('reel-hl');
-
-    // Capture natural scale factor after layout (defer one frame)
-    let zoomScale = 1.3;
-    function calcZoom() {
-      const r = device.getBoundingClientRect();
-      if (!r.width) return;
-      zoomScale = Math.max(
-        window.innerWidth  / r.width,
-        window.innerHeight / r.height
-      ) * 1.04; // tiny overshoot so seams don't show
-    }
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: stage,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 1.2,
-        invalidateOnRefresh: true,
-        onRefresh: calcZoom
-      }
-    });
-
-    tl
-      .to([hd, prog],  { opacity: 0, y: -24, ease: 'none', duration: 0.3 }, 0)
-      .to(hl,          { opacity: 0, ease: 'none', duration: 0.2 }, 0)
-      .to(device, {
-        scale: () => zoomScale,
-        borderRadius: 0,
-        boxShadow: 'none',
-        ease: 'none',
-        duration: 1,
-        transformOrigin: 'center center'
-      }, 0.25);
-
-    // Kick off initial calc after paint
-    requestAnimationFrame(calcZoom);
-  })();
+  // Product zoom-on-scroll removed — reel now plays in place without scrub.
 
 
 
