@@ -323,19 +323,26 @@
     .reel-progress,#reel-hl{display:none;}
     .reel-inner{padding:0 16px 0 10px;}
     .reel-device{box-shadow:0 12px 32px -16px rgba(0,0,0,0.5);}
-    .reel-screen-wrap{height:auto !important;overflow:visible;}
+    .reel-screen-wrap{height:auto !important;overflow:visible !important;}
     .reel-screen{
-      position:static;width:auto;height:auto;
+      position:static !important;width:auto !important;height:auto !important;
       transform:none !important;
-      display:flex;flex-direction:column;gap:0;
+      display:flex !important;flex-direction:column !important;gap:0 !important;
       background:transparent;
     }
     .reel-beat{
-      position:relative;display:block !important;
-      padding:32px 20px;border-top:1px solid var(--line);
+      position:relative !important;inset:auto !important;
+      display:block !important;
+      padding:32px 20px !important;border-top:1px solid var(--line);
       background:var(--paper);
     }
     .reel-beat:first-child{border-top:0;}
+    /* Linearize multi-column beat grids to single column on phone */
+    .rb-grid-2,.rb-grid-4,.rb-grid-ads,.rb-grid-fu{
+      display:flex !important;flex-direction:column !important;
+      grid-template-columns:none !important;height:auto !important;
+      gap:20px !important;
+    }
     .rb-eyebrow,.rb-heading,.rb-row,.rb-event,
     .rb-kpi-card,.rb-flag-card,.rb-chart-card,.rb-stat-card,
     .rb-bars,.rb-bar{
