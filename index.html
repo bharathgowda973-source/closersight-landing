@@ -381,8 +381,13 @@
     #features .feat-image{height:60vh;}
   }
   .product-hd{padding:40px 32px 28px 16px;}
-  .reel-inner{max-width:1100px;margin:0 auto;padding:0 32px 0 16px;position:relative;flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:48px;}
-  .reel-progress{display:flex;gap:8px;margin-bottom:36px;}
+  .reel-inner{max-width:1100px;margin:0 auto;padding:0 32px 0 16px;position:relative;flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;padding-bottom:24px;}
+  .reel-progress{display:flex;gap:8px;margin-bottom:24px;}
+  @media(max-height:780px) and (min-width:769px){
+    .product-hd{padding:24px 32px 16px 16px;}
+    .product-hd h2{font-size:clamp(28px,3vw,42px);}
+    .reel-progress{margin-bottom:16px;}
+  }
   .reel-seg{flex:1;height:2px;background:rgba(255,255,255,0.12);border-radius:999px;overflow:hidden;}
   .reel-fill{height:100%;width:0%;background:var(--paper);border-radius:999px;}
   .reel-device{border-radius:16px;overflow:hidden;box-shadow:0 80px 160px -40px rgba(0,0,0,0.8),0 0 0 1px rgba(255,255,255,0.06);background:var(--paper);}
@@ -862,12 +867,42 @@
         screenWrap.style.height = '';
         return;
       }
-      const scale = screenWrap.clientWidth / 1520;
+      const product = document.getElementById('product');
+      const hd      = document.querySelector('.product-hd');
+      const prog    = document.querySelector('.reel-progress');
+      const chrome  = document.querySelector('.reel-chrome');
+      const inner   = document.querySelector('.reel-inner');
+
+      const wrapW = screenWrap.clientWidth;
+
+      const innerStyles = inner ? getComputedStyle(inner) : null;
+      const innerPadY = innerStyles
+        ? parseFloat(innerStyles.paddingTop) + parseFloat(innerStyles.paddingBottom)
+        : 0;
+      const productH = product ? product.clientHeight : window.innerHeight;
+      const hdH      = hd     ? hd.offsetHeight     : 0;
+      const progH    = prog   ? prog.offsetHeight   : 0;
+      const progMB   = prog
+        ? parseFloat(getComputedStyle(prog).marginBottom)
+        : 0;
+      const chromeH  = chrome ? chrome.offsetHeight : 0;
+
+      const availH = Math.max(
+        240,
+        productH - hdH - progH - progMB - chromeH - innerPadY - 16
+      );
+
+      const scale = Math.max(0.5, Math.min(wrapW / 1520, availH / 816));
+
       screen.style.transform = `scale(${scale})`;
       screenWrap.style.height = (816 * scale) + 'px';
     }
     scaleScreen();
     window.addEventListener('resize', scaleScreen);
+    window.addEventListener('orientationchange', scaleScreen);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(scaleScreen);
+    }
     const $ = id => document.getElementById(id);
     let startTime = null, reelVisible = false;
     const reelSection = document.getElementById('product');
