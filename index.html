@@ -355,7 +355,6 @@
     .rb-fu-list{gap:8px !important;}
     .reel-progress{margin-bottom:18px !important;}
     /* Constrain overlay headline to fit phone */
-    #reel-hl{font-size:36px !important;bottom:16px !important;padding:0 16px !important;}
   }
 
   /* ── Product / Feature Reel ─────────────────────────────────────────────── */
@@ -464,7 +463,6 @@
   .rb-fu-tag{font-size:10px;color:var(--mute);font-weight:600;letter-spacing:0.1em;}
   .rb-fu-who{font-size:16px;font-weight:600;}
   /* Kinetic headline */
-  .reel-hl{position:absolute;bottom:48px;left:0;right:0;text-align:center;font-size:clamp(48px,5.5vw,88px);font-weight:800;letter-spacing:-0.05em;line-height:0.95;color:var(--paper);pointer-events:none;mix-blend-mode:difference;opacity:0;transform:translateY(40px);z-index:10;}
 </style>
 </head>
 <body>
@@ -649,7 +647,6 @@
         </div><!-- .reel-screen -->
       </div><!-- .reel-screen-wrap -->
     </div><!-- .reel-device -->
-    <div class="reel-hl" id="reel-hl"></div>
   </div><!-- .reel-inner -->
 </section>
 </div><!-- .product-stage -->
@@ -973,22 +970,11 @@
     function renderProgress(gt) {
       [[0,6],[6,12],[12,18],[18,24],[24,29]].forEach(([s,e],i)=>{ const f=$('rf'+i); if(f) f.style.width=(clamp01((gt-s)/(e-s))*100)+'%'; });
     }
-    const hlW=[{s:1.2,e:5.4,text:'Prioritised.'},{s:7.2,e:11.4,text:'Visible.'},{s:13.2,e:17.4,text:'Trusted.'},{s:19.2,e:23.4,text:'Unified.'},{s:24.9,e:28.8,text:'On time.'}];
-    function renderHeadline(gt) {
-      const hl=$('reel-hl'); if(!hl) return;
-      let active=null; hlW.forEach(w=>{ if(gt>=w.s-0.05&&gt<=w.e+0.05) active=w; });
-      if(!active){hl.style.opacity=0;return;}
-      hl.textContent=active.text;
-      const local=(gt-active.s)/(active.e-active.s);
-      const inP=Math.min(1,local*4), outP=Math.max(0,(local-0.75)*4);
-      hl.style.opacity=Math.min(inP,1-outP);
-      hl.style.transform=`translateY(${(1-inP)*40-outP*40}px)`;
-    }
     gsap.ticker.add(()=>{
       if(!reelVisible || startTime===null) return;
       const now=gsap.ticker.time;
       const gt=(now-startTime)%DURATION;
-      renderProgress(gt); renderBeat1(gt); renderBeat2(gt); renderBeat3(gt); renderBeat4(gt); renderBeat5(gt); renderHeadline(gt);
+      renderProgress(gt); renderBeat1(gt); renderBeat2(gt); renderBeat3(gt); renderBeat4(gt); renderBeat5(gt);
     });
   })();
 </script>
