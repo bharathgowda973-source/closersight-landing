@@ -383,7 +383,13 @@
   @media(max-width:900px){
     #features .feat-split{grid-template-columns:1fr;min-height:auto;}
     #features .feat-text{padding:0 20px 0 10px;}
-    #features .feat-image{height:60vh;}
+    #features .feat-image{
+      align-self:stretch;height:auto;
+      width:calc(100% - 20px);margin:24px 10px 40px;
+      border-radius:14px;
+      box-shadow:0 30px 60px -30px rgba(10,12,12,0.4);
+    }
+    #features .feat-image img{height:auto;object-fit:contain;object-position:center top;}
   }
   .product-hd{padding:40px 32px 28px 16px;}
   .reel-inner{max-width:1400px;margin:0 auto;padding:0 32px 0 16px;position:relative;flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;padding-bottom:8px;}
