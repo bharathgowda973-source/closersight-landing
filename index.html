@@ -317,17 +317,15 @@
   }
 
   @media(max-width:768px){
-    /* Reel section becomes 100svh tall with device centred — same
-       proportions as desktop. JS sizes .reel-screen at runtime. */
+    /* Reel section is content-sized — black wraps device snugly. */
     .product-stage{height:auto;}
     #product{
       position:static;
-      height:calc(100svh + 50px);min-height:520px;
-      padding:16px 0;
-      display:flex;flex-direction:column;
+      height:auto;min-height:0;
+      padding:24px 0 32px;
     }
     .product-hd{padding:24px 20px 16px 10px;}
-    .reel-inner{padding:0 !important;flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;}
+    .reel-inner{padding:0 !important;}
     .reel-device{margin:0 -12px;box-shadow:0 12px 32px -16px rgba(0,0,0,0.5);}
     .reel-screen-wrap{height:auto !important;overflow:hidden !important;}
     .reel-screen{
@@ -873,13 +871,20 @@
     const screen = document.getElementById('reel-screen');
     function scaleScreen() {
       if (!screenWrap || !screen) return;
+      if (window.matchMedia('(max-width:768px)').matches) {
+        // Mobile: CSS .reel-screen{min-height:520px} governs; clear any
+        // inline styles left over from a desktop pass.
+        screen.style.transform = '';
+        screen.style.minHeight = '';
+        screenWrap.style.height = '';
+        return;
+      }
 
       const product = document.getElementById('product');
       const hd      = document.querySelector('.product-hd');
       const prog    = document.querySelector('.reel-progress');
       const chrome  = document.querySelector('.reel-chrome');
       const inner   = document.querySelector('.reel-inner');
-      const isMobile = window.matchMedia('(max-width:768px)').matches;
 
       const wrapW = screenWrap.clientWidth;
       const innerStyles = inner ? getComputedStyle(inner) : null;
@@ -899,16 +904,6 @@
         productH - hdH - progH - progMB - chromeH - innerPadY - 8
       );
 
-      if (isMobile) {
-        // No scale transform on mobile — beats are flow-laid-out per CSS.
-        // Just size the screen to fill the available black-section height.
-        screen.style.transform = '';
-        screenWrap.style.height = '';
-        screen.style.minHeight = availH + 'px';
-        return;
-      }
-
-      // Desktop: scale the fixed 1520×816 frame to fit width AND height.
       screen.style.minHeight = '';
       const scale = Math.max(0.5, Math.min(wrapW / 1520, availH / 816));
       screen.style.transform = `scale(${scale})`;
