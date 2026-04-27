@@ -316,43 +316,46 @@
   }
 
   @media(max-width:768px){
-    /* Kill sticky scrollytelling — reel becomes a vertical stack */
+    /* Drop sticky scrollytelling — reel sits inline, plays on auto-loop */
     .product-stage{height:auto;}
     #product{position:static;height:auto;min-height:0;padding:32px 0 56px;}
     .product-hd{padding:24px 20px 16px 10px;}
-    .reel-progress,#reel-hl{display:none;}
     .reel-inner{padding:0 16px 0 10px;}
     .reel-device{box-shadow:0 12px 32px -16px rgba(0,0,0,0.5);}
-    .reel-screen-wrap{height:auto !important;overflow:visible !important;}
+    /* Resize the fixed 1520×816 stage to fit phone width while keeping
+       beats absolutely-positioned so JS show/hide + opacity animation drives. */
+    .reel-screen-wrap{height:auto !important;overflow:hidden !important;}
     .reel-screen{
-      position:static !important;width:auto !important;height:auto !important;
+      position:relative !important;width:100% !important;
+      min-height:560px !important;height:auto !important;
       transform:none !important;
-      display:flex !important;flex-direction:column !important;gap:0 !important;
-      background:transparent;
+      display:block !important;
+      background:var(--paper) !important;
     }
     .reel-beat{
-      position:relative !important;inset:auto !important;
-      display:block !important;
-      padding:32px 20px !important;border-top:1px solid var(--line);
-      background:var(--paper);
+      padding:28px 20px !important;
+      /* keep position:absolute; inset:0 from base rule so beats overlap and
+         JS toggles display:block/none per scrub time */
     }
-    .reel-beat:first-child{border-top:0;}
     /* Linearize multi-column beat grids to single column on phone */
     .rb-grid-2,.rb-grid-4,.rb-grid-ads,.rb-grid-fu{
       display:flex !important;flex-direction:column !important;
       grid-template-columns:none !important;height:auto !important;
-      gap:20px !important;
+      gap:20px !important;align-items:stretch !important;
     }
-    .rb-eyebrow,.rb-heading,.rb-row,.rb-event,
-    .rb-kpi-card,.rb-flag-card,.rb-chart-card,.rb-stat-card,
-    .rb-bars,.rb-bar{
-      opacity:1 !important;transform:none !important;
-    }
-    .rb-heading{font-size:28px;line-height:1.15;margin-bottom:20px;}
-    .rb-eyebrow{margin-bottom:8px;}
-    .rb-row{padding:14px 16px;}
-    .rb-kpi-card,.rb-flag-card,.rb-chart-card,.rb-stat-card{padding:16px;}
-    .rb-bars{height:140px;gap:8px;}
+    /* Mobile typography for beat content */
+    .rb-heading{font-size:30px !important;line-height:1.1 !important;margin-bottom:16px !important;}
+    .rb-eyebrow{margin-bottom:6px !important;}
+    .rb-row{padding:12px 14px !important;}
+    .rb-co{font-size:15px !important;}
+    .rb-person{font-size:12px !important;}
+    .rb-kpi-card,.rb-flag-card,.rb-chart-card,.rb-stat-card{padding:14px !important;}
+    .rb-kpi-num{font-size:30px !important;}
+    .rb-bars{height:120px !important;gap:6px !important;}
+    .rb-fu-list{gap:8px !important;}
+    .reel-progress{margin-bottom:18px !important;}
+    /* Constrain overlay headline to fit phone */
+    #reel-hl{font-size:36px !important;bottom:16px !important;padding:0 16px !important;}
   }
 
   /* ── Product / Feature Reel ─────────────────────────────────────────────── */
