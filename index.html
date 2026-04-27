@@ -382,8 +382,8 @@
     #features .feat-image{height:60vh;}
   }
   .product-hd{padding:40px 32px 28px 16px;}
-  .reel-inner{max-width:1110px;margin:0 auto;padding:0 32px 0 16px;position:relative;flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;padding-bottom:24px;}
-  .reel-progress{display:flex;gap:8px;margin-bottom:24px;}
+  .reel-inner{max-width:1400px;margin:0 auto;padding:0 32px 0 16px;position:relative;flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;padding-bottom:8px;}
+  .reel-progress{display:flex;gap:8px;margin-bottom:16px;}
   @media(max-height:780px) and (min-width:769px){
     .product-hd{padding:24px 32px 16px 16px;}
     .product-hd h2{font-size:clamp(28px,3vw,42px);}
@@ -890,7 +890,7 @@
 
       const availH = Math.max(
         240,
-        productH - hdH - progH - progMB - chromeH - innerPadY - 16
+        productH - hdH - progH - progMB - chromeH - innerPadY - 8
       );
 
       const scale = Math.max(0.5, Math.min(wrapW / 1520, availH / 816));
