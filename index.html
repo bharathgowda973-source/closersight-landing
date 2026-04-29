@@ -1161,7 +1161,7 @@
     if (!mreel) return;
     if (!window.matchMedia('(max-width:768px)').matches) return;
 
-    const M_TOTAL = 14;
+    const M_TOTAL = 25;
     const easeOutCubic = p => 1 - Math.pow(1-p,3);
     const lerp = (t,a,b,from,to,ease) => {
       if (b===a) return from;
@@ -1173,18 +1173,18 @@
     const clamp01 = v => Math.max(0,Math.min(1,v));
 
     const BEATS = [
-      { id:'queue',     start:0,    end:2.8,  label:"TODAY'S QUEUE" },
-      { id:'feed',      start:2.8,  end:5.6,  label:'LIVE · TEAM' },
-      { id:'integrity', start:5.6,  end:8.4,  label:'INTEGRITY · 8 CHECKS' },
-      { id:'ads',       start:8.4,  end:11.2, label:'ADS · UNIFIED' },
-      { id:'followup',  start:11.2, end:13.4, label:'FOLLOW-UPS' },
+      { id:'queue',     start:0,    end:5.0,  label:"TODAY'S QUEUE" },
+      { id:'feed',      start:5.0,  end:10.0, label:'LIVE · TEAM' },
+      { id:'integrity', start:10.0, end:15.0, label:'INTEGRITY · 8 CHECKS' },
+      { id:'ads',       start:15.0, end:20.0, label:'ADS · UNIFIED' },
+      { id:'followup',  start:20.0, end:24.0, label:'FOLLOW-UPS' },
     ];
     const HEADLINES = [
-      { text:'Prioritised.', start:0.5,  end:2.5 },
-      { text:'Visible.',     start:3.3,  end:5.3 },
-      { text:'Trusted.',     start:6.1,  end:8.1 },
-      { text:'Unified.',     start:8.9,  end:10.9 },
-      { text:'On time.',     start:11.7, end:13.2 },
+      { text:'Prioritised.', start:0.9,  end:4.5 },
+      { text:'Visible.',     start:5.9,  end:9.5 },
+      { text:'Trusted.',     start:10.9, end:14.5 },
+      { text:'Unified.',     start:15.9, end:19.5 },
+      { text:'On time.',     start:20.9, end:23.6 },
     ];
 
     const $m = id => document.getElementById(id);
@@ -1285,7 +1285,7 @@
       // Active beat
       let active = null;
       for (const b of BEATS){ if (gt < b.end){ active = b; break; } }
-      const showEnd = gt >= 13.4;
+      const showEnd = gt >= 24.0;
 
       ['queue','feed','integrity','ads','followup'].forEach(id=>{
         const el = beatEls[id];
