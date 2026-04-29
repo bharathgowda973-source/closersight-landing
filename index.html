@@ -317,48 +317,105 @@
   }
 
   @media(max-width:768px){
-    /* Reel section is content-sized — black wraps device snugly. */
     .product-stage{height:auto;}
-    #product{
-      position:static;
-      height:auto;min-height:0;
-      padding:24px 0 32px;
-    }
-    .product-hd{padding:24px 20px 16px 10px;}
-    .reel-inner{padding:0 !important;}
-    .reel-device{margin:0 -12px;box-shadow:0 12px 32px -16px rgba(0,0,0,0.5);}
-    .reel-screen-wrap{height:auto !important;overflow:hidden !important;}
-    .reel-screen{
-      position:relative !important;width:100% !important;
-      min-height:520px !important;height:auto !important;
-      transform:none !important;
-      display:block !important;
-      background:var(--paper) !important;
-    }
-    .reel-beat{
-      padding:28px 20px !important;
-      /* keep position:absolute; inset:0 from base rule so beats overlap and
-         JS toggles display:block/none per scrub time */
-    }
-    /* Linearize multi-column beat grids to single column on phone */
-    .rb-grid-2,.rb-grid-4,.rb-grid-ads,.rb-grid-fu{
-      display:flex !important;flex-direction:column !important;
-      grid-template-columns:none !important;height:auto !important;
-      gap:20px !important;align-items:stretch !important;
-    }
-    /* Mobile typography for beat content */
-    .rb-heading{font-size:30px !important;line-height:1.1 !important;margin-bottom:16px !important;}
-    .rb-eyebrow{margin-bottom:6px !important;}
-    .rb-row{padding:12px 14px !important;}
-    .rb-co{font-size:15px !important;}
-    .rb-person{font-size:12px !important;}
-    .rb-kpi-card,.rb-flag-card,.rb-chart-card,.rb-stat-card{padding:14px !important;}
-    .rb-kpi-num{font-size:30px !important;}
-    .rb-bars{height:120px !important;gap:6px !important;}
-    .rb-fu-list{gap:8px !important;}
-    .reel-progress{margin-bottom:18px !important;}
-    /* Constrain overlay headline to fit phone */
+    #product{position:static;height:auto;min-height:0;padding:24px 12px 32px;}
+    /* Hide desktop reel chrome — mobile uses new portrait phone frame */
+    .reel-progress,.reel-device{display:none !important;}
+    .m-reel{display:block !important;}
   }
+
+  /* ── Mobile-only Feature Reel (portrait phone frame) ───────────────────── */
+  .m-reel{display:none;width:100%;max-width:380px;margin:0 auto;position:relative;}
+  .m-reel-progress{display:flex;gap:6px;margin-bottom:14px;padding:0 4px;}
+  .m-reel-progress .m-seg{flex:1;height:3px;background:rgba(255,255,255,0.18);border-radius:999px;overflow:hidden;}
+  .m-reel-progress .m-fill{height:100%;width:0%;background:var(--paper);}
+  .m-reel-frame{position:relative;background:var(--paper);border-radius:28px;overflow:hidden;aspect-ratio:9/16;box-shadow:0 24px 48px -16px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.08);}
+  .m-statusbar{position:absolute;top:0;left:0;right:0;height:32px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;z-index:10;}
+  .m-statusbar .m-time{font-size:13px;font-weight:600;color:var(--ink);}
+  .m-statusbar .m-live{font-size:10px;color:var(--accent-2);letter-spacing:0.1em;}
+  .m-applabel{position:absolute;top:32px;left:0;right:0;height:30px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;border-bottom:1px solid var(--line);z-index:10;}
+  .m-applabel .m-label{font-size:10px;color:var(--mute);letter-spacing:0.16em;text-transform:uppercase;}
+  .m-applabel .m-brand{font-size:10px;color:var(--mute);letter-spacing:0.08em;}
+  .m-screen{position:absolute;top:62px;left:0;right:0;bottom:0;}
+  .m-beat{position:absolute;inset:0;padding:20px 18px;display:none;overflow:hidden;}
+  .m-beat.m-active{display:block;}
+  .m-beat h2{font-size:38px;font-weight:700;letter-spacing:-0.035em;line-height:0.95;margin-bottom:18px;color:var(--ink);}
+  .m-beat h2 em{font-style:italic;font-weight:400;color:var(--accent-2);}
+  .m-beat .m-sub{font-size:11px;color:var(--mute);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;}
+  .m-beat .m-body{font-size:13px;color:var(--mute);line-height:1.4;margin-top:10px;}
+  /* Queue rows */
+  .m-rows{display:flex;flex-direction:column;gap:8px;}
+  .m-row{display:flex;align-items:center;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:12px;}
+  .m-row .m-num{width:26px;font-size:11px;color:var(--mute);font-family:'JetBrains Mono',monospace;}
+  .m-row .m-info{flex:1;min-width:0;}
+  .m-row .m-co{font-size:14px;font-weight:600;letter-spacing:-0.01em;}
+  .m-row .m-person{font-size:11px;color:var(--mute);margin-top:1px;}
+  .m-row .m-tag{font-size:9px;letter-spacing:0.1em;font-weight:600;font-family:'JetBrains Mono',monospace;margin-right:10px;}
+  .m-row .m-score{font-size:22px;font-weight:700;letter-spacing:-0.02em;font-family:'JetBrains Mono',monospace;}
+  /* Feed */
+  .m-feed{background:#fff;border:1px solid var(--line);border-radius:12px;padding:4px 14px;}
+  .m-event{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);}
+  .m-event:first-child{border-top:0;}
+  .m-event .m-etime{font-size:10px;color:var(--mute);width:38px;font-family:'JetBrains Mono',monospace;}
+  .m-event .m-etext{flex:1;font-size:11px;min-width:0;}
+  .m-event .m-etext strong{font-weight:600;font-size:12px;display:block;}
+  .m-event .m-etext span{color:var(--mute);}
+  .m-event .m-escore{font-size:10px;color:var(--accent-2);font-weight:700;letter-spacing:0.06em;font-family:'JetBrains Mono',monospace;}
+  /* KPI grid for feed beat */
+  .m-kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;}
+  .m-kpi{padding:14px;background:#fff;border:1px solid var(--line);border-radius:12px;}
+  .m-kpi.dark{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+  .m-kpi .m-klabel{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mute);font-family:'JetBrains Mono',monospace;}
+  .m-kpi.dark .m-klabel{color:rgba(255,255,255,0.5);}
+  .m-kpi .m-knum{font-size:36px;font-weight:700;letter-spacing:-0.04em;margin-top:4px;font-family:'JetBrains Mono',monospace;}
+  .m-kpi .m-knum span{font-size:18px;}
+  .m-kpi .m-kdelta{font-size:10px;color:var(--accent-2);margin-top:2px;font-family:'JetBrains Mono',monospace;}
+  .m-kpi.dark .m-kdelta{color:#9ae3e3;}
+  /* Flag grid */
+  .m-flags{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .m-flag{padding:12px;background:#fff;border:1px solid var(--line);border-radius:12px;}
+  .m-flag-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+  .m-flag-dot{width:8px;height:8px;border-radius:999px;}
+  .m-flag-sev{font-size:8px;letter-spacing:0.1em;font-weight:600;font-family:'JetBrains Mono',monospace;}
+  .m-flag-name{font-size:11px;font-weight:600;letter-spacing:-0.01em;line-height:1.2;margin-bottom:6px;}
+  .m-flag-count{font-size:22px;font-weight:700;letter-spacing:-0.03em;font-family:'JetBrains Mono',monospace;}
+  /* Bar chart */
+  .m-chart{padding:14px;background:#fff;border:1px solid var(--line);border-radius:12px;}
+  .m-chart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .m-chart-label{font-size:9px;color:var(--mute);letter-spacing:0.1em;text-transform:uppercase;font-family:'JetBrains Mono',monospace;}
+  .m-chart-roas{font-size:11px;color:var(--accent-2);font-weight:700;font-family:'JetBrains Mono',monospace;}
+  .m-bars{display:flex;align-items:flex-end;gap:6px;height:120px;}
+  .m-bar-wrap{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;}
+  .m-bar{width:100%;border-radius:3px;transition:height 0.3s ease-out;}
+  .m-bar-label{font-size:9px;color:var(--mute);margin-top:6px;font-family:'JetBrains Mono',monospace;}
+  /* 3-up stats */
+  .m-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px;}
+  .m-stat{padding:10px;background:#fff;border:1px solid var(--line);border-radius:10px;}
+  .m-stat.dark{background:var(--ink);color:var(--paper);border:0;}
+  .m-stat .m-skey{font-size:8px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mute);font-family:'JetBrains Mono',monospace;}
+  .m-stat.dark .m-skey{color:rgba(255,255,255,0.5);}
+  .m-stat .m-sval{font-size:22px;font-weight:700;letter-spacing:-0.03em;margin-top:2px;font-family:'JetBrains Mono',monospace;}
+  .m-stat .m-sdesc{font-size:9px;color:var(--accent-2);margin-top:2px;font-family:'JetBrains Mono',monospace;}
+  .m-stat.dark .m-sdesc{color:#9ae3e3;}
+  /* Follow-up cards */
+  .m-fu-list{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
+  .m-fu{padding:14px;background:#fff;border:1px solid var(--line);border-radius:12px;border-left:4px solid var(--line);}
+  .m-fu.due{border-left-color:var(--accent-2);}
+  .m-fu-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+  .m-fu-time{font-size:10px;color:var(--mute);letter-spacing:0.06em;font-weight:600;font-family:'JetBrains Mono',monospace;}
+  .m-fu.due .m-fu-time{color:var(--accent-2);}
+  .m-fu-tag{font-size:8px;color:var(--mute);font-weight:700;letter-spacing:0.14em;font-family:'JetBrains Mono',monospace;}
+  .m-fu.due .m-fu-tag{color:var(--accent-2);}
+  .m-fu-who{font-size:14px;font-weight:600;letter-spacing:-0.01em;}
+  /* End card */
+  .m-end{position:absolute;inset:0;background:var(--ink);display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;}
+  .m-end.m-active{display:flex;}
+  .m-end-mark{width:54px;height:54px;border-radius:14px;background:var(--accent-2);display:flex;align-items:center;justify-content:center;}
+  .m-end-mark::after{content:"";width:24px;height:24px;border-radius:6px;background:var(--paper);}
+  .m-end-name{font-size:42px;font-weight:800;letter-spacing:-0.04em;color:var(--paper);line-height:1;}
+  .m-end-url{font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:0.2em;text-transform:uppercase;font-family:'JetBrains Mono',monospace;}
+  /* Headline overlay */
+  .m-headline{position:absolute;left:0;right:0;bottom:54px;text-align:center;padding:0 18px;font-size:48px;font-weight:800;letter-spacing:-0.05em;line-height:0.92;color:var(--paper);opacity:0;transform:translateY(40px);pointer-events:none;z-index:20;mix-blend-mode:difference;}
 
   /* ── Product / Feature Reel ─────────────────────────────────────────────── */
   #product-intro{padding:96px 0 16px;}
@@ -662,6 +719,110 @@
         </div><!-- .reel-screen -->
       </div><!-- .reel-screen-wrap -->
     </div><!-- .reel-device -->
+
+    <!-- ── Mobile-only feature reel (portrait phone frame) ──────────────── -->
+    <div class="m-reel" id="m-reel">
+      <div class="m-reel-progress">
+        <div class="m-seg"><div class="m-fill" id="mf0"></div></div>
+        <div class="m-seg"><div class="m-fill" id="mf1"></div></div>
+        <div class="m-seg"><div class="m-fill" id="mf2"></div></div>
+        <div class="m-seg"><div class="m-fill" id="mf3"></div></div>
+        <div class="m-seg"><div class="m-fill" id="mf4"></div></div>
+      </div>
+      <div class="m-reel-frame">
+        <div class="m-statusbar">
+          <span class="m-time mono">9:41</span>
+          <span class="m-live mono">● LIVE</span>
+        </div>
+        <div class="m-applabel">
+          <span class="m-label mono" id="m-applabel">TODAY'S QUEUE</span>
+          <span class="m-brand mono">closersight</span>
+        </div>
+        <div class="m-screen">
+          <!-- Beat 1: Priority Queue -->
+          <div class="m-beat" id="mb-queue">
+            <h2>Priority<br>Queue</h2>
+            <div class="m-rows">
+              <div class="m-row"><span class="m-num">01</span><div class="m-info"><div class="m-co">Vector Dynamics</div><div class="m-person">Jane Doe</div></div><span class="m-tag" style="color:var(--accent-2)">HOT</span><span class="m-score" style="color:var(--accent-2)">92</span></div>
+              <div class="m-row"><span class="m-num">02</span><div class="m-info"><div class="m-co">Aperture Labs</div><div class="m-person">B. Ward</div></div><span class="m-tag" style="color:var(--accent-2)">HOT</span><span class="m-score" style="color:var(--accent-2)">84</span></div>
+              <div class="m-row"><span class="m-num">03</span><div class="m-info"><div class="m-co">Northbridge</div><div class="m-person">P. Rao</div></div><span class="m-tag" style="color:#c89450">WARM</span><span class="m-score" style="color:#c89450">68</span></div>
+              <div class="m-row"><span class="m-num">04</span><div class="m-info"><div class="m-co">Heliograph</div><div class="m-person">T. Kim</div></div><span class="m-tag" style="color:#c89450">WARM</span><span class="m-score" style="color:#c89450">61</span></div>
+            </div>
+          </div>
+
+          <!-- Beat 2: Team Activity + KPIs -->
+          <div class="m-beat" id="mb-feed">
+            <h2>Team<br>activity</h2>
+            <div class="m-feed">
+              <div class="m-event"><span class="m-etime">14:22</span><div class="m-etext"><strong>Priya M.</strong><span>logged call · Aperture</span></div><span class="m-escore">+4</span></div>
+              <div class="m-event"><span class="m-etime">14:21</span><div class="m-etext"><strong>Daniel R.</strong><span>drafted follow-up</span></div><span class="m-escore">AI</span></div>
+              <div class="m-event"><span class="m-etime">14:19</span><div class="m-etext"><strong>Aisha P.</strong><span>closed Heliograph · $48K</span></div><span class="m-escore">WIN</span></div>
+              <div class="m-event"><span class="m-etime">14:18</span><div class="m-etext"><strong>Marcus S.</strong><span>scored Vector Dynamics</span></div><span class="m-escore">92</span></div>
+            </div>
+            <div class="m-kpis">
+              <div class="m-kpi"><div class="m-klabel">Calls</div><div class="m-knum" id="m-kpi-calls">0</div><div class="m-kdelta">↑ +23%</div></div>
+              <div class="m-kpi dark"><div class="m-klabel">Conv.</div><div class="m-knum" id="m-kpi-conv">0<span>%</span></div><div class="m-kdelta">↑ +4.2 pts</div></div>
+            </div>
+          </div>
+
+          <!-- Beat 3: Integrity -->
+          <div class="m-beat" id="mb-integrity">
+            <h2>Trust,<br>verified.</h2>
+            <div class="m-sub">Live anomaly detection</div>
+            <div class="m-flags">
+              <div class="m-flag"><div class="m-flag-top"><span class="m-flag-dot" style="background:#d94747"></span><span class="m-flag-sev" style="color:#d94747">HIGH</span></div><div class="m-flag-name">Ghost Calls</div><div class="m-flag-count">3</div></div>
+              <div class="m-flag"><div class="m-flag-top"><span class="m-flag-dot" style="background:#c89450"></span><span class="m-flag-sev" style="color:#c89450">MEDIUM</span></div><div class="m-flag-name">Score Inflation</div><div class="m-flag-count">2</div></div>
+              <div class="m-flag"><div class="m-flag-top"><span class="m-flag-dot" style="background:#d94747"></span><span class="m-flag-sev" style="color:#d94747">HIGH</span></div><div class="m-flag-name">Follow-up Neglect</div><div class="m-flag-count">4</div></div>
+              <div class="m-flag"><div class="m-flag-top"><span class="m-flag-dot" style="background:var(--mute)"></span><span class="m-flag-sev" style="color:var(--mute)">LOW</span></div><div class="m-flag-name">Batch Logging</div><div class="m-flag-count">1</div></div>
+              <div class="m-flag"><div class="m-flag-top"><span class="m-flag-dot" style="background:#d94747"></span><span class="m-flag-sev" style="color:#d94747">HIGH</span></div><div class="m-flag-name">Cherry Picking</div><div class="m-flag-count">2</div></div>
+              <div class="m-flag"><div class="m-flag-top"><span class="m-flag-dot" style="background:#c89450"></span><span class="m-flag-sev" style="color:#c89450">MEDIUM</span></div><div class="m-flag-name">Low Effort Notes</div><div class="m-flag-count">2</div></div>
+            </div>
+          </div>
+
+          <!-- Beat 4: Ad spend -->
+          <div class="m-beat" id="mb-ads">
+            <h2>Ad spend,<br>clarified.</h2>
+            <div class="m-chart">
+              <div class="m-chart-head"><span class="m-chart-label">Daily · 7d</span><span class="m-chart-roas">ROAS 4.2×</span></div>
+              <div class="m-bars">
+                <div class="m-bar-wrap"><div class="m-bar" style="background:var(--ink)" data-h="40"></div><span class="m-bar-label">M</span></div>
+                <div class="m-bar-wrap"><div class="m-bar" style="background:var(--accent-2)" data-h="62"></div><span class="m-bar-label">T</span></div>
+                <div class="m-bar-wrap"><div class="m-bar" style="background:var(--ink)" data-h="48"></div><span class="m-bar-label">W</span></div>
+                <div class="m-bar-wrap"><div class="m-bar" style="background:var(--accent-2)" data-h="78"></div><span class="m-bar-label">T</span></div>
+                <div class="m-bar-wrap"><div class="m-bar" style="background:var(--ink)" data-h="55"></div><span class="m-bar-label">F</span></div>
+                <div class="m-bar-wrap"><div class="m-bar" style="background:var(--accent-2)" data-h="92"></div><span class="m-bar-label">S</span></div>
+                <div class="m-bar-wrap"><div class="m-bar" style="background:var(--ink)" data-h="71"></div><span class="m-bar-label">S</span></div>
+              </div>
+            </div>
+            <div class="m-stats">
+              <div class="m-stat"><div class="m-skey">Spend</div><div class="m-sval" id="m-stat-spend">$0</div><div class="m-sdesc">7d</div></div>
+              <div class="m-stat"><div class="m-skey">Clicks</div><div class="m-sval" id="m-stat-clicks">0</div><div class="m-sdesc">CTR 3.8%</div></div>
+              <div class="m-stat dark"><div class="m-skey">Conv.</div><div class="m-sval" id="m-stat-conv">0</div><div class="m-sdesc">CPA $87</div></div>
+            </div>
+          </div>
+
+          <!-- Beat 5: Follow-ups -->
+          <div class="m-beat" id="mb-followup">
+            <h2>Nothing falls<br><em>through the cracks.</em></h2>
+            <div class="m-body">Browser reminders fire 30 min early. Overdue tasks surface automatically.</div>
+            <div class="m-fu-list">
+              <div class="m-fu due"><div class="m-fu-meta"><span class="m-fu-time">Tomorrow · 10:30</span><span class="m-fu-tag">DUE</span></div><div class="m-fu-who">Vector Dynamics</div></div>
+              <div class="m-fu"><div class="m-fu-meta"><span class="m-fu-time">Fri · 14:00</span><span class="m-fu-tag">SCHEDULED</span></div><div class="m-fu-who">Aperture Labs</div></div>
+              <div class="m-fu"><div class="m-fu-meta"><span class="m-fu-time">Mon · 09:15</span><span class="m-fu-tag">SCHEDULED</span></div><div class="m-fu-who">Northbridge</div></div>
+            </div>
+          </div>
+
+          <!-- End card -->
+          <div class="m-end" id="mb-end">
+            <div class="m-end-mark"></div>
+            <div class="m-end-name">CloserSight</div>
+            <div class="m-end-url">closersight.app</div>
+          </div>
+
+          <div class="m-headline" id="m-headline"></div>
+        </div>
+      </div>
+    </div>
   </div><!-- .reel-inner -->
 </section>
 </div><!-- .product-stage -->
@@ -990,6 +1151,179 @@
       const now=gsap.ticker.time;
       const gt=(now-startTime)%DURATION;
       renderProgress(gt); renderBeat1(gt); renderBeat2(gt); renderBeat3(gt); renderBeat4(gt); renderBeat5(gt);
+    });
+  })();
+
+  // ── Mobile Feature Reel (portrait phone frame, 14s loop) ──────────────
+  (function(){
+    const mreel = document.getElementById('m-reel');
+    if (!mreel) return;
+    if (!window.matchMedia('(max-width:768px)').matches) return;
+
+    const M_TOTAL = 14;
+    const easeOutCubic = p => 1 - Math.pow(1-p,3);
+    const lerp = (t,a,b,from,to,ease) => {
+      if (b===a) return from;
+      let p = (t-a)/(b-a);
+      if (p<=0) return from; if (p>=1) return to;
+      if (ease) p = ease(p);
+      return from + (to-from)*p;
+    };
+    const clamp01 = v => Math.max(0,Math.min(1,v));
+
+    const BEATS = [
+      { id:'queue',     start:0,    end:2.8,  label:"TODAY'S QUEUE" },
+      { id:'feed',      start:2.8,  end:5.6,  label:'LIVE · TEAM' },
+      { id:'integrity', start:5.6,  end:8.4,  label:'INTEGRITY · 8 CHECKS' },
+      { id:'ads',       start:8.4,  end:11.2, label:'ADS · UNIFIED' },
+      { id:'followup',  start:11.2, end:13.4, label:'FOLLOW-UPS' },
+    ];
+    const HEADLINES = [
+      { text:'Prioritised.', start:0.5,  end:2.5 },
+      { text:'Visible.',     start:3.3,  end:5.3 },
+      { text:'Trusted.',     start:6.1,  end:8.1 },
+      { text:'Unified.',     start:8.9,  end:10.9 },
+      { text:'On time.',     start:11.7, end:13.2 },
+    ];
+
+    const $m = id => document.getElementById(id);
+    const beatEls = {
+      queue: $m('mb-queue'), feed: $m('mb-feed'), integrity: $m('mb-integrity'),
+      ads: $m('mb-ads'), followup: $m('mb-followup')
+    };
+    const endEl = $m('mb-end');
+    const labelEl = $m('m-applabel');
+    const headlineEl = $m('m-headline');
+    const fills = [0,1,2,3,4].map(i => $m('mf'+i));
+
+    let startTime = null, reelVisible = false;
+    const reelSection = document.getElementById('product');
+    if (!reelSection) return;
+    new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { reelVisible = true; if (startTime===null) startTime = gsap.ticker.time; }
+        else { reelVisible = false; startTime = null; }
+      });
+    }, { threshold:0.05 }).observe(reelSection);
+
+    function ss(el, props){ if (el) Object.assign(el.style, props); }
+
+    function renderQueue(t, el){
+      const h2 = el.querySelector('h2');
+      ss(h2, { opacity:lerp(t,0.05,0.3,0,1), transform:`translateY(${lerp(t,0.05,0.3,30,0,easeOutCubic)}px)` });
+      el.querySelectorAll('.m-row').forEach((r,i)=>{
+        const rt = t - 0.25 - i*0.1;
+        const op = clamp01(rt*3);
+        ss(r, { opacity:op, transform:`translateY(${(1-op)*30}px)` });
+      });
+    }
+    function renderFeed(t, el){
+      const h2 = el.querySelector('h2');
+      ss(h2, { opacity:lerp(t,0.05,0.3,0,1), transform:`translateY(${lerp(t,0.05,0.3,30,0,easeOutCubic)}px)` });
+      el.querySelectorAll('.m-event').forEach((ev,i)=>{
+        const rt = t - 0.25 - i*0.09;
+        const op = clamp01(rt*4);
+        ss(ev, { opacity:op, transform:`translateX(${(1-op)*40}px)` });
+      });
+      const calls = $m('m-kpi-calls');
+      const conv = $m('m-kpi-conv');
+      if (calls) calls.textContent = Math.floor(lerp(t,0.4,1,0,127,easeOutCubic));
+      if (conv) conv.innerHTML = lerp(t,0.65,1,0,31.4,easeOutCubic).toFixed(1) + '<span>%</span>';
+      const kpis = el.querySelectorAll('.m-kpi');
+      ss(kpis[0], { opacity:lerp(t,0.55,0.8,0,1), transform:`scale(${lerp(t,0.55,0.8,0.94,1,easeOutCubic)})` });
+      ss(kpis[1], { opacity:lerp(t,0.65,0.9,0,1), transform:`scale(${lerp(t,0.65,0.9,0.94,1,easeOutCubic)})` });
+    }
+    function renderIntegrity(t, el){
+      const h2 = el.querySelector('h2');
+      const sub = el.querySelector('.m-sub');
+      ss(h2, { opacity:lerp(t,0.05,0.3,0,1), transform:`translateY(${lerp(t,0.05,0.3,30,0,easeOutCubic)}px)` });
+      ss(sub, { opacity:lerp(t,0.15,0.4,0,1) });
+      el.querySelectorAll('.m-flag').forEach((f,i)=>{
+        const rt = t - 0.25 - i*0.07;
+        const op = clamp01(rt*4);
+        const sc = 0.92 + 0.08*op;
+        ss(f, { opacity:op, transform:`scale(${sc})` });
+      });
+    }
+    function renderAds(t, el){
+      const h2 = el.querySelector('h2');
+      ss(h2, { opacity:lerp(t,0.05,0.3,0,1), transform:`translateY(${lerp(t,0.05,0.3,30,0,easeOutCubic)}px)` });
+      ss(el.querySelector('.m-chart'), { opacity:lerp(t,0.2,0.5,0,1) });
+      el.querySelectorAll('.m-bar').forEach((b,i)=>{
+        const bt = t - 0.3 - i*0.05;
+        b.style.height = (clamp01(bt*3) * parseFloat(b.dataset.h||0)) + '%';
+      });
+      const stats = el.querySelectorAll('.m-stat');
+      stats.forEach((s,i)=>{
+        const a = 0.3+i*0.1, b = 0.55+i*0.1;
+        ss(s, { opacity:lerp(t,a,b,0,1), transform:`translateY(${lerp(t,a,b,24,0,easeOutCubic)}px)` });
+      });
+      const sp = $m('m-stat-spend'), cl = $m('m-stat-clicks'), cv = $m('m-stat-conv');
+      if (sp) sp.textContent = '$' + Math.floor(lerp(t,0.3,1,0,24850,easeOutCubic)/1000) + 'K';
+      if (cl) cl.textContent = Math.floor(lerp(t,0.4,1,0,12470,easeOutCubic)/1000) + 'K';
+      if (cv) cv.textContent = Math.floor(lerp(t,0.5,1,0,284,easeOutCubic));
+    }
+    function renderFollowup(t, el){
+      const h2 = el.querySelector('h2');
+      const body = el.querySelector('.m-body');
+      ss(h2, { opacity:lerp(t,0.05,0.3,0,1), transform:`translateY(${lerp(t,0.05,0.3,30,0,easeOutCubic)}px)` });
+      ss(body, { opacity:lerp(t,0.3,0.55,0,1) });
+      el.querySelectorAll('.m-fu').forEach((f,i)=>{
+        const a = 0.35+i*0.12, b = 0.6+i*0.12;
+        ss(f, { opacity:lerp(t,a,b,0,1), transform:`translateX(${lerp(t,a,b,50,0,easeOutCubic)}px)` });
+      });
+    }
+
+    function render(gt){
+      // Progress bar
+      BEATS.forEach((seg,i)=>{
+        const f = fills[i];
+        if (f) f.style.width = (clamp01((gt - seg.start) / (seg.end - seg.start)) * 100) + '%';
+      });
+
+      // Active beat
+      let active = null;
+      for (const b of BEATS){ if (gt < b.end){ active = b; break; } }
+      const showEnd = gt >= 13.4;
+
+      ['queue','feed','integrity','ads','followup'].forEach(id=>{
+        const el = beatEls[id];
+        if (!el) return;
+        const isActive = active && active.id === id && !showEnd;
+        el.classList.toggle('m-active', isActive);
+      });
+      endEl.classList.toggle('m-active', showEnd);
+      labelEl.textContent = showEnd ? 'CLOSERSIGHT' : (active ? active.label : '');
+
+      // Per-beat content animation
+      if (active && !showEnd){
+        const local = (gt - active.start) / (active.end - active.start);
+        if (active.id === 'queue')          renderQueue(local, beatEls.queue);
+        else if (active.id === 'feed')      renderFeed(local, beatEls.feed);
+        else if (active.id === 'integrity') renderIntegrity(local, beatEls.integrity);
+        else if (active.id === 'ads')       renderAds(local, beatEls.ads);
+        else if (active.id === 'followup')  renderFollowup(local, beatEls.followup);
+      }
+
+      // Headline overlay
+      let h = null;
+      for (const w of HEADLINES){ if (gt >= w.start - 0.05 && gt <= w.end + 0.05){ h = w; break; } }
+      if (!h){ headlineEl.style.opacity = 0; }
+      else {
+        headlineEl.textContent = h.text;
+        const local = (gt - h.start) / (h.end - h.start);
+        const inP = Math.min(1, local*4);
+        const outP = Math.max(0, (local-0.78)*4.5);
+        headlineEl.style.opacity = Math.min(inP, 1-outP);
+        headlineEl.style.transform = `translateY(${(1-inP)*40 - outP*40}px)`;
+      }
+    }
+
+    gsap.ticker.add(()=>{
+      if (!reelVisible || startTime === null) return;
+      const now = gsap.ticker.time;
+      const gt = (now - startTime) % M_TOTAL;
+      render(gt);
     });
   })();
 </script>
